@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.wuqingzhe.cn","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="最近在准备各种实习面试，感觉基础很薄弱，所以找来一些基础恶补一下。在此博客看到15道据说出现频率很高的算法题，原博用C++实现，我决定用python重新完成一下。">
+<meta name="keywords" content="面试,算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="15道面试题">
+<meta property="og:url" content="http://blog.wuqingzhe.cn/2018/04/17/15questions/index.html">
+<meta property="og:site_name" content="FlySevenWu Blog">
+<meta property="og:description" content="最近在准备各种实习面试，感觉基础很薄弱，所以找来一些基础恶补一下。在此博客看到15道据说出现频率很高的算法题，原博用C++实现，我决定用python重新完成一下。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://gss0.bdstatic.com/94o3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=157d647823a446236ac7ad30f94b196b/574e9258d109b3dee4ddfa6acfbf6c81800a4c55.jpg">
+<meta property="og:updated_time" content="2018-09-12T08:39:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="15道面试题">
+<meta name="twitter:description" content="最近在准备各种实习面试，感觉基础很薄弱，所以找来一些基础恶补一下。在此博客看到15道据说出现频率很高的算法题，原博用C++实现，我决定用python重新完成一下。">
+<meta name="twitter:image" content="https://gss0.bdstatic.com/94o3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=157d647823a446236ac7ad30f94b196b/574e9258d109b3dee4ddfa6acfbf6c81800a4c55.jpg">
+
+<link rel="canonical" href="http://blog.wuqingzhe.cn/2018/04/17/15questions/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>15道面试题 | FlySevenWu Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">FlySevenWu Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.wuqingzhe.cn/2018/04/17/15questions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Gareth Ng">
+      <meta itemprop="description" content="为了更伟大的利益">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FlySevenWu Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          15道面试题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-04-17 21:34:19" itemprop="dateCreated datePublished" datetime="2018-04-17T21:34:19+08:00">2018-04-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-09-12 16:39:38" itemprop="dateModified" datetime="2018-09-12T16:39:38+08:00">2018-09-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面试/" itemprop="url" rel="index"><span itemprop="name">面试</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2018/04/17/15questions/" class="post-meta-item leancloud_visitors" data-flag-title="15道面试题" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2018/04/17/15questions/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2018/04/17/15questions/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>最近在准备各种实习面试，感觉基础很薄弱，所以找来一些基础恶补一下。在<a href="https://www.zhaoyafei.cn/content.html?id=150788638132" target="_blank" rel="noopener"><strong><em>此博客</em></strong></a>看到15道据说出现频率很高的算法题，原博用C++实现，我决定用python重新完成一下。</p>
+<a id="more"></a>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p>1、合并排序，将两个已经排序的数组合并成一个数组，其中一个数组能容下两个数组的所有元<br>2、合并两个已经排序的单链表<br>3、倒序打印一个单链表<br>4、给定一个单链表的头指针和一个指定节点的指针，在O(1)时间删除该节点<br>5、找到链表倒数第K个节点<br>6、反转单链表<br>7、通过两个栈实现一个队列<br>8、二分查找<br>9、快速排序<br>10、获得一个int型的数中二进制中的个数<br>11、输入一个数组，实现一个函数，让所有奇数都在偶数前面<br>12、判断一个字符串是否是另一个字符串的子串<br>13、把一个int型数组中的数字拼成一个串，这个串代表的数字最小<br>14、输入一颗二叉树，输出它的镜像（每个节点的左右子节点交换位置)<br>15、输入两个链表，找到它们第一个公共节点</p>
+<p>本文中链表节点和树节点定义如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NodeL</span>:</span><span class="comment">#链表节点</span></span><br><span class="line">	<span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,value)</span>:</span></span><br><span class="line">        self.value = value</span><br><span class="line">        self.next = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NodeT</span>:</span><span class="comment">#树节点</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span>  <span class="title">__init__</span><span class="params">(self,value,left,right)</span>:</span></span><br><span class="line">        self.value = value</span><br><span class="line">        self.left = <span class="keyword">None</span></span><br><span class="line">        self.right = <span class="keyword">None</span></span><br></pre></td></tr></table></figure>
+<h1 id="合并排序，将两个已经排序的数组合并成一个数组，其中一个数组能容下两个数组的所有元素"><a href="#合并排序，将两个已经排序的数组合并成一个数组，其中一个数组能容下两个数组的所有元素" class="headerlink" title="合并排序，将两个已经排序的数组合并成一个数组，其中一个数组能容下两个数组的所有元素"></a>合并排序，将两个已经排序的数组合并成一个数组，其中一个数组能容下两个数组的所有元素</h1><p>常规思路是新建一个数组C，然后将A、B两数组的值按顺序放进C，最后把剩下的全部放进去。这里提供的是之间把A扩大到B的大小，然后从后往前放元素，这样便不用再创建数组了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line"><span class="comment">#合并已排序的数组</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">MergeArray</span><span class="params">(self,a,alen,b,blen)</span>:</span></span><br><span class="line">        len = alen + blen - <span class="number">1</span></span><br><span class="line">        a.extend([<span class="number">0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> range(blen)])</span><br><span class="line">        alen -= <span class="number">1</span></span><br><span class="line">        blen -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> alen&gt;=<span class="number">0</span> <span class="keyword">and</span> blen &gt;= <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">if</span> a[alen] &gt; b[blen]:</span><br><span class="line">                a[len] = a[alen]</span><br><span class="line">                alen -= <span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                a[len] = b[blen]</span><br><span class="line">                blen -= <span class="number">1</span></span><br><span class="line">            len -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> blen &gt;=<span class="number">0</span>:</span><br><span class="line">            a[<span class="number">0</span>:blen+<span class="number">1</span>] = b[<span class="number">0</span>:blen+<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<h1 id="合并两个已经排序的单链表"><a href="#合并两个已经排序的单链表" class="headerlink" title="合并两个已经排序的单链表"></a>合并两个已经排序的单链表</h1><p>这与合并数组类似</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="comment"># 合并连个已经排序的单链表</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">Merge</span><span class="params">(self, pHead1, pHead2)</span>:</span></span><br><span class="line">        <span class="comment"># write code here</span></span><br><span class="line"></span><br><span class="line">        res = head = NodeL(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">while</span> pHead1 <span class="keyword">and</span> pHead2:</span><br><span class="line">            <span class="keyword">if</span> pHead1.val &lt; pHead2.val:</span><br><span class="line">                head.next = pHead1</span><br><span class="line">                pHead1 = pHead1.next</span><br><span class="line"></span><br><span class="line">            <span class="keyword">elif</span> pHead1.val &gt;= pHead2.val:</span><br><span class="line">                head.next = pHead2</span><br><span class="line">                pHead2 = pHead2.next</span><br><span class="line">            head = head.next</span><br><span class="line">        head.next = pHead1 <span class="keyword">or</span> pHead2</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> res.next</span><br></pre></td></tr></table></figure>
+<h1 id="倒序打印一个单链表"><a href="#倒序打印一个单链表" class="headerlink" title="倒序打印一个单链表"></a>倒序打印一个单链表</h1><p>递归实现，先递归后打印</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">ReservePrintNode</span><span class="params">(self,head)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> head:</span><br><span class="line">            self.ReservePrintNode(head.next)</span><br><span class="line">            print(head.value)</span><br></pre></td></tr></table></figure>
+<h1 id="给定一个单链表的头指针和一个指定节点的指针，在O-1-时间删除该节点"><a href="#给定一个单链表的头指针和一个指定节点的指针，在O-1-时间删除该节点" class="headerlink" title="给定一个单链表的头指针和一个指定节点的指针，在O(1)时间删除该节点"></a>给定一个单链表的头指针和一个指定节点的指针，在O(1)时间删除该节点</h1><p>因为需要时间复杂度O(1)，所以不能对链表进行搜索找到节点的上一节点，从而删除。不过原文算法在删除尾节点时似乎还是用到了循环，没想到良好的解决方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">DeleteNode</span><span class="params">(self,head,delNode)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> delNode == head:</span><br><span class="line">            head = delNode.next</span><br><span class="line">            <span class="keyword">return</span> head</span><br><span class="line">        <span class="keyword">elif</span> <span class="keyword">not</span> delNode.next: <span class="comment">#这里是不对嗒</span></span><br><span class="line">            delNode = <span class="keyword">None</span></span><br><span class="line">            <span class="keyword">return</span> head</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            next = delNode.next</span><br><span class="line">            delNode.next = next.next</span><br><span class="line">            delNode.value = next.value</span><br><span class="line">            <span class="keyword">return</span> head</span><br></pre></td></tr></table></figure>
+<h1 id="找到链表倒数第K个节点"><a href="#找到链表倒数第K个节点" class="headerlink" title="找到链表倒数第K个节点"></a>找到链表倒数第K个节点</h1><p>python里可以按序把节点放进list中，然后输出list[-k]</p>
+<p>更加省空间的做法是使用两个指针，第一个先往前走k个节点，然后另一个指向head，之后两个一起往前走，第一个到最后，第二个便指向倒数第k个节点。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">FindkthToTail</span><span class="params">(self,head,k)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> head <span class="keyword">or</span> k == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">None</span></span><br><span class="line">       	tmpNode = head</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,k):</span><br><span class="line">            <span class="keyword">if</span> tmpNode:</span><br><span class="line">                tmpNode = tmpNode.next</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">None</span></span><br><span class="line">        kNode = head</span><br><span class="line">        <span class="keyword">while</span> tmpNode:</span><br><span class="line">            kNode = kNode.next</span><br><span class="line">            tmpNode = tmpNode.next</span><br><span class="line">        <span class="keyword">return</span> kNode</span><br></pre></td></tr></table></figure>
+<h1 id="反转单链表"><a href="#反转单链表" class="headerlink" title="反转单链表"></a>反转单链表</h1><p>使用三个指针，依次翻转</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">ReverseList</span><span class="params">(self,pHead)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> pHead <span class="keyword">or</span> <span class="keyword">not</span> pHead.next:</span><br><span class="line">            <span class="keyword">return</span> pHead</span><br><span class="line">       	pPre = <span class="keyword">None</span></span><br><span class="line">        pCur = pHead</span><br><span class="line">        pReverse = <span class="keyword">None</span></span><br><span class="line">        <span class="keyword">while</span> pCur:</span><br><span class="line">            pNext = pCur.next</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> pNext:</span><br><span class="line">                pReverse = pCur.next</span><br><span class="line">            pCur.next = pPre</span><br><span class="line">            pPre = pCur</span><br><span class="line">            pCur = pNext</span><br><span class="line">        <span class="keyword">return</span> pReverse</span><br></pre></td></tr></table></figure>
+<h1 id="通过两个栈实现一个队列"><a href="#通过两个栈实现一个队列" class="headerlink" title="通过两个栈实现一个队列"></a>通过两个栈实现一个队列</h1><p>主要思路就是把stack1当作存储空间，stack2作为缓冲区</p>
+<p>入队时，将元素压入stack1</p>
+<p>出队时，若stack2不为空，之间把stack2栈顶元素弹出即可，若为空，则需要把stack1内元素倒入stack2中，把最后一个元素弹出</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Queue</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.stack1 = []</span><br><span class="line">        self.stack2 =[]</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">push</span><span class="params">(self,x)</span>:</span></span><br><span class="line">        self.stack1.append(x)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pop</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> len(self.stack2) ==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">while</span> self.stack1:</span><br><span class="line">                self.stack2.append(self.stack1.pop())</span><br><span class="line">        <span class="keyword">return</span> self.stack2.pop()</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">size</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> len(self.stack1) + len(self.stack2)</span><br></pre></td></tr></table></figure>
+<h1 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h1><p>很常见很基础的题目了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">binartSearch</span><span class="params">(self,lists,x)</span>:</span></span><br><span class="line">        start = <span class="number">0</span></span><br><span class="line">        end = len(lists) - <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> start &lt;= end:</span><br><span class="line">            middle = (end + start)//<span class="number">2</span></span><br><span class="line">            <span class="keyword">if</span> a[middle] == x:</span><br><span class="line">                <span class="keyword">return</span> middle</span><br><span class="line">            <span class="keyword">elif</span> a[middle] &gt; x:</span><br><span class="line">            	end = middle <span class="number">-1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                start = middle + <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span></span><br></pre></td></tr></table></figure>
+<h1 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h1><p>主要思路就是通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。借用百度百科的图片</p>
+<p><img src="https://gss0.bdstatic.com/94o3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=157d647823a446236ac7ad30f94b196b/574e9258d109b3dee4ddfa6acfbf6c81800a4c55.jpg" alt></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">quicksort</span><span class="params">(self,lists,left,right)</span>:</span></span><br><span class="line">        x = lists[right]</span><br><span class="line">        i = left - <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(len(lists)<span class="number">-1</span>):</span><br><span class="line">            <span class="keyword">if</span> lists[j] &lt; x:</span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">                lists[i],list[j] = lists[j],lists[i]</span><br><span class="line">            lists[i+<span class="number">1</span>],lists[right] = lists[right],lists[i+<span class="number">1</span>]</span><br><span class="line">        <span class="keyword">return</span> i+<span class="number">1</span></span><br><span class="line">   	<span class="function"><span class="keyword">def</span> <span class="title">quicksortself</span><span class="params">(self,lists,left,right)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> left &lt; right:</span><br><span class="line">            num = self.quicksort(lists,left,right)</span><br><span class="line">            quicksort(lists,left,num<span class="number">-1</span>)</span><br><span class="line">            quicksort(lists,num+<span class="number">1</span>,right)</span><br></pre></td></tr></table></figure>
+<h1 id="获得一个int型的数中二进制中1的个数"><a href="#获得一个int型的数中二进制中1的个数" class="headerlink" title="获得一个int型的数中二进制中1的个数"></a>获得一个int型的数中二进制中1的个数</h1><p>python内置bin函数，可以将数字转为对应二进制字符串，然后使用count函数便可得到1的个数。只是注意bin函数并不是把数字转为补码，</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">bindigits</span><span class="params">(self,n, bits)</span>:</span></span><br><span class="line">        s = bin(n &amp; int(<span class="string">"1"</span>*bits, <span class="number">2</span>))[<span class="number">2</span>:]</span><br><span class="line">        <span class="keyword">return</span> s</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">NumberOf1</span><span class="params">(self, n)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.bindigits(n,<span class="number">32</span>).count(<span class="string">'1'</span>)</span><br></pre></td></tr></table></figure>
+<p>更普遍的实现方式是通过这个数和比他小1的数的二进制进行&amp;运算，将二进制中1慢慢地从后往前去掉，直到没有。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">	    <span class="function"><span class="keyword">def</span> <span class="title">find1count</span><span class="params">(self,num)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> num == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        count = <span class="number">1</span></span><br><span class="line">        num = num &amp; (num - <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">while</span> num:</span><br><span class="line">            count += <span class="number">1</span></span><br><span class="line">            num = num &amp; (num - <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> count</span><br></pre></td></tr></table></figure>
+<p>后来发现上面的代码遇到负数时会进入死循环可以将最高位的符号位1变成0，也就是n &amp; 0x7FFFFFFF，这样就把负数转化成正数了，唯一差别就是最高位由1变成0，因为少了一个1，所以count加1。不过这里还会遇到-1和-2147483648两个特例，想想决定单独处理掉，于是就变成了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">find1count</span><span class="params">(self,num)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> num == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        count = <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> num == <span class="number">-1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">32</span></span><br><span class="line">        <span class="keyword">if</span> num == <span class="number">-2147483648</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> num &lt; <span class="number">0</span>:</span><br><span class="line">            num = num &amp; <span class="number">0x7FFFFFFF</span></span><br><span class="line">            count +=<span class="number">1</span></span><br><span class="line">        num = num &amp; (num - <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">while</span> num!=<span class="number">0</span>:</span><br><span class="line">            count += <span class="number">1</span></span><br><span class="line">            num = num &amp; (num - <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> count</span><br></pre></td></tr></table></figure>
+<p>看到的最简洁的代码是这个</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">one</span><span class="params">(self,num)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> sum([(num &gt;&gt; i &amp; <span class="number">1</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, <span class="number">32</span>)])</span><br></pre></td></tr></table></figure>
+<h1 id="输入一个数组，实现一个函数，让所有奇数都在偶数前"><a href="#输入一个数组，实现一个函数，让所有奇数都在偶数前" class="headerlink" title="输入一个数组，实现一个函数，让所有奇数都在偶数前"></a>输入一个数组，实现一个函数，让所有奇数都在偶数前</h1><p>python可以用sorted方法，参数key使用判断奇偶数的lambda表达式即可。</p>
+<p>正经方法的话，借用快速排序的思路，完成一次快排即可</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">RecordOddEven</span><span class="params">(self,lists)</span>:</span></span><br><span class="line">        i = <span class="number">-1</span></span><br><span class="line">        j = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> j &lt;= len(lists):</span><br><span class="line">            <span class="keyword">if</span> lists[j] % <span class="number">2</span> != <span class="number">0</span>:</span><br><span class="line">            	i += <span class="number">1</span></span><br><span class="line">                lists[i],list[j] = lists[j],lists[i]</span><br><span class="line">          	j +=<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> lists</span><br></pre></td></tr></table></figure>
+<h1 id="判断一个字符串是否是另一个字符串的子串"><a href="#判断一个字符串是否是另一个字符串的子串" class="headerlink" title="判断一个字符串是否是另一个字符串的子串"></a>判断一个字符串是否是另一个字符串的子串</h1><p>python可以用in操作符，string模块的find方法，index方法，这些就不赘述了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">checkchild</span><span class="params">(self,s1,s2)</span>:</span></span><br><span class="line">        j = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(s2)):</span><br><span class="line">            <span class="keyword">while</span> j &lt; len(s1) <span class="keyword">and</span> s1[i] != s2[j]:</span><br><span class="line">                j+=<span class="number">1</span></span><br><span class="line">           	<span class="keyword">if</span> j == len(s1):</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line">       	<span class="keyword">return</span> <span class="keyword">True</span></span><br></pre></td></tr></table></figure>
+<p>暴力按序统计</p>
+<h1 id="把一个int型数组中的数字拼成一个串，这个串代表的数字最小"><a href="#把一个int型数组中的数字拼成一个串，这个串代表的数字最小" class="headerlink" title="把一个int型数组中的数字拼成一个串，这个串代表的数字最小"></a>把一个int型数组中的数字拼成一个串，这个串代表的数字最小</h1><p>把数组里所有数转为字符串，再把字符串拼在一起，排序，如果首位是0，就和之后第一个不是0的数交换</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getmin</span><span class="params">(self,lists)</span>:</span></span><br><span class="line">        l=<span class="string">''</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> lists:</span><br><span class="line">            l+=str(i)</span><br><span class="line">        l = list(l)</span><br><span class="line">        l.sort()</span><br><span class="line">        <span class="keyword">if</span> l[<span class="number">0</span>] == <span class="string">'0'</span>:</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(l)):</span><br><span class="line">                <span class="keyword">if</span> l[i] != <span class="string">'0'</span>:</span><br><span class="line">                    l[<span class="number">0</span>],l[i]=l[i],l[<span class="number">0</span>]</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">        s=<span class="string">''</span>.join(l)</span><br><span class="line">        <span class="keyword">return</span> int(s)</span><br></pre></td></tr></table></figure>
+<h1 id="输入一颗二叉树，输出它的镜像（每个节点的左右子节点交换位置"><a href="#输入一颗二叉树，输出它的镜像（每个节点的左右子节点交换位置" class="headerlink" title="输入一颗二叉树，输出它的镜像（每个节点的左右子节点交换位置"></a>输入一颗二叉树，输出它的镜像（每个节点的左右子节点交换位置</h1><p>递归实现，只要某个节点的两个子节点都不为空，就左右交换，让左子树交换，让右子树交换。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="comment"># 返回镜像树的根节点</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">Mirror</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="comment"># write code here</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> root <span class="keyword">or</span> (<span class="keyword">not</span> root.left <span class="keyword">and</span> <span class="keyword">not</span> root.right):</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        root.left,root.right = root.right,root.left</span><br><span class="line">        self.Mirror(root.left)</span><br><span class="line">        self.Mirror(root.right)</span><br><span class="line">        <span class="keyword">return</span> root</span><br></pre></td></tr></table></figure>
+<h1 id="输入两个链表，找到它们第一个公共节点"><a href="#输入两个链表，找到它们第一个公共节点" class="headerlink" title="输入两个链表，找到它们第一个公共节点"></a>输入两个链表，找到它们第一个公共节点</h1><p>如果两个链表有公共的节点，那么第一个公共的节点及往后的节点都是公共的。从后往前数N个节点（N=短链表的长度节点个数）,长链表先往前走K个节 点（K=长链表的节点个数-N），这时两个链表都距离末尾N个节点，现在可以一一比较了，最多比较N次，如果有两个节点相同就是第一个公共节点，否则就没 有公共节点。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getLength</span><span class="params">(self,pHead)</span>:</span></span><br><span class="line">        l = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> pHead:</span><br><span class="line">            pHead = pHead.next</span><br><span class="line">            l+=<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> l</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">FindFirstCommonNode</span><span class="params">(self, pHead1, pHead2)</span>:</span></span><br><span class="line">        <span class="comment"># write code here</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> pHead1 <span class="keyword">or</span> <span class="keyword">not</span> pHead2:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">None</span></span><br><span class="line">        l1 = self.getLength(pHead1)</span><br><span class="line">        l2 = self.getLength(pHead2)</span><br><span class="line">        <span class="keyword">if</span> l1&lt;l2:</span><br><span class="line">            shortL = pHead1</span><br><span class="line">            longL = pHead2</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            shortL = pHead2</span><br><span class="line">            longL = pHead1</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(self.getLength(longL) - self.getLength(shortL)):</span><br><span class="line">            longL = longL.next</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(self.getLength(shortL)):</span><br><span class="line">            <span class="keyword">if</span> longL != shortL:</span><br><span class="line">                longL = longL.next</span><br><span class="line">                shortL = shortL.next</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> longL</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">None</span></span><br></pre></td></tr></table></figure>
+<p>原文链接 <a href="http://blog.wuqingzhe.cn/2018/04/17/15questions/">http://blog.wuqingzhe.cn/2018/04/17/15questions/</a> </p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>感谢您的支持</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/ali.jpg" alt="Gareth Ng 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/面试/" rel="tag"># 面试</a>
+              <a href="/tags/算法/" rel="tag"># 算法</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/03/28/first/" rel="prev" title="突然想搭建博客">
+      <i class="fa fa-chevron-left"></i> 突然想搭建博客
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/03/22/RL学习笔记/" rel="next" title="强化学习（Reinforcement Learning）学习笔记（一）">
+      强化学习（Reinforcement Learning）学习笔记（一） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目录"><span class="nav-text">目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#合并排序，将两个已经排序的数组合并成一个数组，其中一个数组能容下两个数组的所有元素"><span class="nav-text">合并排序，将两个已经排序的数组合并成一个数组，其中一个数组能容下两个数组的所有元素</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#合并两个已经排序的单链表"><span class="nav-text">合并两个已经排序的单链表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#倒序打印一个单链表"><span class="nav-text">倒序打印一个单链表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#给定一个单链表的头指针和一个指定节点的指针，在O-1-时间删除该节点"><span class="nav-text">给定一个单链表的头指针和一个指定节点的指针，在O(1)时间删除该节点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#找到链表倒数第K个节点"><span class="nav-text">找到链表倒数第K个节点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#反转单链表"><span class="nav-text">反转单链表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通过两个栈实现一个队列"><span class="nav-text">通过两个栈实现一个队列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二分查找"><span class="nav-text">二分查找</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#快速排序"><span class="nav-text">快速排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#获得一个int型的数中二进制中1的个数"><span class="nav-text">获得一个int型的数中二进制中1的个数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#输入一个数组，实现一个函数，让所有奇数都在偶数前"><span class="nav-text">输入一个数组，实现一个函数，让所有奇数都在偶数前</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#判断一个字符串是否是另一个字符串的子串"><span class="nav-text">判断一个字符串是否是另一个字符串的子串</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#把一个int型数组中的数字拼成一个串，这个串代表的数字最小"><span class="nav-text">把一个int型数组中的数字拼成一个串，这个串代表的数字最小</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#输入一颗二叉树，输出它的镜像（每个节点的左右子节点交换位置"><span class="nav-text">输入一颗二叉树，输出它的镜像（每个节点的左右子节点交换位置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#输入两个链表，找到它们第一个公共节点"><span class="nav-text">输入两个链表，找到它们第一个公共节点</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Gareth Ng"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Gareth Ng</p>
+  <div class="site-description" itemprop="description">为了更伟大的利益</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/flysevenwu" title="GitHub → https://github.com/flysevenwu" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:njwqz77@gmail.com" title="E-Mail → mailto:njwqz77@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/wqzw7" title="Weibo → https://weibo.com/wqzw7" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://donghao2nanjing.github.io/" title="https://donghao2nanjing.github.io/" rel="noopener" target="_blank">Dong Hao</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gareth Ng</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">32k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">29 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'QpENPc0QgPnhSwvxhNqYYR4E-MdYXbMMI',
+      appKey     : 'XmyLxKgOfGFeLwOaBMYGRTvo',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
