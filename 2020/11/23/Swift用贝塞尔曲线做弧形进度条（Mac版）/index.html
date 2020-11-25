@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwgy1gl1iztnc50j30vk0u041r.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwgy1gl1jn7fm4vj30ww0ba3yd.jpg">
-<meta property="og:updated_time" content="2020-11-25T09:25:02.818Z">
+<meta property="og:updated_time" content="2020-11-25T09:28:27.922Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift用贝塞尔曲线做弧形进度条（Mac版）">
 <meta name="twitter:description" content="项目需求，需要通过类似弧形进度条展示某项数据，在简单查阅后，根据几个作者的iOS版本进行修改，完成了Mac版本。利用贝塞尔曲线，不很复杂。">
@@ -195,7 +195,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-11-25 17:25:02" itemprop="dateModified" datetime="2020-11-25T17:25:02+08:00">2020-11-25</time>
+                <time title="修改时间：2020-11-25 17:28:27" itemprop="dateModified" datetime="2020-11-25T17:28:27+08:00">2020-11-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -269,6 +269,8 @@
 <h2 id="2-3"><a href="#2-3" class="headerlink" title="2.3"></a>2.3</h2><p>前置进度条层foreLayer，设置与backgroundLayer完全一样，也许次添加上述的贝塞尔曲线，唯一区别在需要设置strokeEnd的值，是描边的进度，用来体现进度条的效果，并根据不同进度显示不同strokeColor，设置颜色和strokeEnd的值的方法暴露为public<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">foreLayer?.lineCap = .round</span><br><span class="line">foreLayer?.path = bezierPath.cgPath</span><br><span class="line">foreLayer?.strokeStart = <span class="number">0</span></span><br><span class="line">foreLayer?.strokeEnd = <span class="number">0.5</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">backgroundLayer.addSublayer(foreLayer!)</span><br><span class="line"></span><br><span class="line"><span class="keyword">self</span>.layer = backgroundLayer</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">setProgress</span><span class="params">(<span class="number">_</span> value: CGFloat)</span></span>&#123;</span><br><span class="line">    <span class="keyword">self</span>.score = value / <span class="number">100</span></span><br><span class="line">    foreLayer?.strokeStart = <span class="number">0</span></span><br><span class="line">    <span class="keyword">self</span>.foreLayer?.strokeEnd = <span class="keyword">self</span>.score</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="3-实际效果"><a href="#3-实际效果" class="headerlink" title="3 实际效果"></a>3 实际效果</h1><p><img src="https://tva1.sinaimg.cn/large/0081Kckwgy1gl1jn7fm4vj30ww0ba3yd.jpg" alt></p>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a href="https://www.jianshu.com/p/90285c6238dc" target="_blank" rel="noopener">ios 做一个完整的渐变进度条</a></p>
+<p><a href="https://www.jianshu.com/p/510980438631" target="_blank" rel="noopener">Swift4撸一个圆形渐变进度条</a></p>
 <p>原文链接 <a href="http://blog.wuqingzhe.cn/2020/11/23/Swift用贝塞尔曲线做弧形进度条（Mac版）/">http://blog.wuqingzhe.cn/2020/11/23/Swift用贝塞尔曲线做弧形进度条（Mac版）/</a> </p>
 
     </div>
@@ -351,7 +353,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-主要思路"><span class="nav-text">1. 主要思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-具体实现"><span class="nav-text">2. 具体实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-背景layer层绘制"><span class="nav-text">2.1 背景layer层绘制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-添加贝塞尔曲线路径"><span class="nav-text">2.2 添加贝塞尔曲线路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3"><span class="nav-text">2.3</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-实际效果"><span class="nav-text">3 实际效果</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-主要思路"><span class="nav-text">1. 主要思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-具体实现"><span class="nav-text">2. 具体实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-背景layer层绘制"><span class="nav-text">2.1 背景layer层绘制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-添加贝塞尔曲线路径"><span class="nav-text">2.2 添加贝塞尔曲线路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3"><span class="nav-text">2.3</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-实际效果"><span class="nav-text">3 实际效果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考链接"><span class="nav-text">参考链接</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
